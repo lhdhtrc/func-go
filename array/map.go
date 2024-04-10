@@ -1,5 +1,6 @@
 package array
 
+// Map map循环
 func Map[T any, R any](array []T, fn func(index int, item T) R) []R {
 	var temp []R
 	for index, item := range array {

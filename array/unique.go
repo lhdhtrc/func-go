@@ -1,5 +1,6 @@
 package array
 
+// Unique 过滤唯一值
 func Unique[T any](array []T, fn func(index int, item T) string) []T {
 	set := make(map[string]T, len(array))
 	flag := 0

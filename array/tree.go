@@ -2,6 +2,7 @@ package array
 
 import "reflect"
 
+// Tree 树方法
 func Tree[T interface{}](list []T) []T {
 	var tree []T
 
