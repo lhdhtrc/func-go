@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func ReadRemote(url string) (*[]byte, error) {
+func ReadRemote(url string) ([]byte, error) {
 	res, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -17,5 +17,5 @@ func ReadRemote(url string) (*[]byte, error) {
 	}(res.Body)
 
 	bytes, _ := io.ReadAll(res.Body)
-	return &bytes, err
+	return bytes, err
 }
