@@ -1,7 +1,7 @@
 package object
 
 import (
-	"github.com/lhdhtrc/func/array"
+	"github.com/lhdhtrc/func-go/array"
 	"reflect"
 )
 
