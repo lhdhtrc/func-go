@@ -2,6 +2,7 @@ package script
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"runtime"
 )
@@ -16,6 +17,12 @@ func Run(path string) {
 		suffix string
 	)
 
+	current, ce := os.Getwd()
+	if ce != nil {
+		fmt.Println("get current err:", ce)
+		return
+	}
+
 	switch runtime.GOOS {
 	case "windows":
 		prefix = "cmd"
@@ -29,7 +36,7 @@ func Run(path string) {
 		return
 	}
 
-	args = append(args, fmt.Sprintf("%s.%s", path, suffix))
+	args = append(args, fmt.Sprintf("%s/%s.%s", current, path, suffix))
 	sc := exec.Command(prefix, args...)
 	_, err := sc.CombinedOutput()
 	if err != nil {
