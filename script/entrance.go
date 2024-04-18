@@ -36,7 +36,7 @@ func Run(path string) {
 		return
 	}
 
-	args = append(args, fmt.Sprintf("%s/%s.%s", current, path, suffix))
+	args = append(args, fmt.Sprintf("%s/script/%s.%s", current, path, suffix))
 	sc := exec.Command(prefix, args...)
 	_, err := sc.CombinedOutput()
 	if err != nil {
