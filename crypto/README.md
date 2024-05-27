@@ -1,0 +1,2 @@
+## func/crypto
+- GenerateMD5
