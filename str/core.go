@@ -24,3 +24,11 @@ func StringToUintSlice(s string) []uint {
 
 	return result
 }
+
+func UintSliceToString(slice []uint) string {
+	str := make([]string, len(slice))
+	for i, num := range slice {
+		str[i] = strconv.Itoa(int(num))
+	}
+	return strings.Join(str, ",")
+}
