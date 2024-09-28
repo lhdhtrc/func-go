@@ -1,6 +1,9 @@
 package array
 
-import "reflect"
+import (
+	"github.com/lhdhtrc/func-go/str"
+	"reflect"
+)
 
 // Tree 树方法
 func Tree[T interface{}](list []T) []T {
@@ -11,7 +14,7 @@ func Tree[T interface{}](list []T) []T {
 
 	for _, node := range list {
 		nodeValue := reflect.ValueOf(node).Elem() // 获取节点的反射值
-		parentId := nodeValue.FieldByName("ParentId").String()
+		parentId := str.ToString(nodeValue.FieldByName("ParentId").Interface())
 
 		if parentId == "" {
 			tree = append(tree, node)
@@ -31,7 +34,7 @@ func Tree[T interface{}](list []T) []T {
 		}
 
 		// 直接从预建的 map 获取子节点
-		children, ok := parentMap[nodeValue.FieldByName("ID").String()]
+		children, ok := parentMap[nodeValue.FieldByName("Id").String()]
 
 		// 处理没有子节点的情况
 		if !ok {
