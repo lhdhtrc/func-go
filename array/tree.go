@@ -16,7 +16,7 @@ func Tree[T interface{}](list []T) []T {
 		nodeValue := reflect.ValueOf(node).Elem() // 获取节点的反射值
 		parentId := str.ToString(nodeValue.FieldByName("ParentId").Interface())
 
-		if parentId == "" {
+		if parentId == "" || parentId == "0" {
 			tree = append(tree, node)
 		} else {
 			// 直接使用 map 查找和追加，提高效率
@@ -33,8 +33,13 @@ func Tree[T interface{}](list []T) []T {
 			continue
 		}
 
+		id := nodeValue.FieldByName("ID")
+		if !id.IsValid() {
+			id = nodeValue.FieldByName("Id")
+		}
+
 		// 直接从预建的 map 获取子节点
-		children, ok := parentMap[nodeValue.FieldByName("Id").String()]
+		children, ok := parentMap[str.ToString(id.Interface())]
 
 		// 处理没有子节点的情况
 		if !ok {
