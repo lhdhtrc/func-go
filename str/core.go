@@ -20,30 +20,11 @@ func ToString(v interface{}) string {
 	}
 }
 
-// StringToUintSlice 字符串转数字切片
-func StringToUintSlice(s string) []uint {
-	parts := strings.Split(s, ",")
-	var result []uint
-
-	for _, part := range parts {
-		part = strings.TrimSpace(part)
-		if part == "" {
-			continue
-		}
-		num, err := strconv.ParseUint(part, 10, strconv.IntSize)
-		if err != nil {
-			continue
-		}
-		result = append(result, uint(num))
-	}
-
-	return result
-}
-
-func UintSliceToString(slice []uint) string {
+// SliceToString 切片转字符串
+func SliceToString(slice []interface{}, symbol string) string {
 	str := make([]string, len(slice))
-	for i, num := range slice {
-		str[i] = strconv.Itoa(int(num))
+	for i, v := range slice {
+		str[i] = ToString(v)
 	}
-	return strings.Join(str, ",")
+	return strings.Join(str, symbol)
 }
