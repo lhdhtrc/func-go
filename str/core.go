@@ -21,8 +21,8 @@ func ToString(v interface{}) string {
 }
 
 // SliceToString 切片转字符串
-func SliceToString[T any](arr interface{}, symbol string) string {
-	if sa, ok := arr.([]T); ok {
+func SliceToString(arr interface{}, symbol string) string {
+	if sa, ok := arr.([]interface{}); ok {
 		sm := make([]string, len(sa))
 		for i, v := range sa {
 			sm[i] = ToString(v)
