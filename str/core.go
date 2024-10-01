@@ -21,10 +21,13 @@ func ToString(v interface{}) string {
 }
 
 // SliceToString 切片转字符串
-func SliceToString(slice []interface{}, symbol string) string {
-	str := make([]string, len(slice))
-	for i, v := range slice {
-		str[i] = ToString(v)
+func SliceToString[T any](arr interface{}, symbol string) string {
+	if sa, ok := arr.([]T); ok {
+		sm := make([]string, len(sa))
+		for i, v := range sa {
+			sm[i] = ToString(v)
+		}
+		return strings.Join(sm, symbol)
 	}
-	return strings.Join(str, symbol)
+	return ""
 }
