@@ -4,3 +4,5 @@
 - Map
 - Unique
 - Tree
+- Diff
+  - DiffStringSlice
