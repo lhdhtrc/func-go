@@ -1,8 +1,8 @@
 package object
 
 import (
-	"github.com/lhdhtrc/func-go/array"
 	"reflect"
+	"slices"
 )
 
 // FilterChangeValue 过滤发生改变的值
@@ -29,7 +29,7 @@ func FilterChangeValue[O any, N any](old O, new N, ignore []string) map[string]i
 	for i := 0; i < rn.NumField(); i++ {
 		k := rn.Type().Field(i).Name
 
-		if array.Include(ignore, k) || !ro.FieldByName(k).IsValid() {
+		if slices.Contains(ignore, k) || !ro.FieldByName(k).IsValid() {
 			continue
 		}
 
