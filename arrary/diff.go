@@ -1,33 +1,35 @@
 package arrary
 
-// DiffStringSlice 返回两个字符串切片之间的差异：新增的和删除的元素
-func DiffStringSlice(original, updated []string) ([]string, []string) {
-	originalMap := make(map[string]bool)
-	updatedMap := make(map[string]bool)
-	var added []string
-	var removed []string
+func DiffSlices[T comparable](old, new []T) (add, remove []T) {
+	// 使用双map实现O(1)存在性检查 + 自动去重
+	oldSet := make(map[T]struct{}, len(old))
+	newSet := make(map[T]struct{}, len(new))
 
-	// 构建原切片的映射
-	for _, item := range original {
-		originalMap[item] = true
+	// 初始化旧数据集（保持原始顺序用于删除检测）
+	for _, item := range old {
+		oldSet[item] = struct{}{}
 	}
 
-	// 构建新切片的映射，并找出差异
-	for _, item := range updated {
-		updatedMap[item] = true
-		if !originalMap[item] {
-			// 如果新切片中的元素不在原切片中，则视为新增
-			added = append(added, item)
-		} else {
-			// 标记为已存在，以便后续检查删除
-			delete(originalMap, item)
+	// 初始化新数据集（保持原始顺序用于新增检测）
+	for _, item := range new {
+		newSet[item] = struct{}{}
+	}
+
+	// 检测新增项（使用新集合顺序保证确定性）
+	add = make([]T, 0, len(newSet))
+	for item := range newSet {
+		if _, exists := oldSet[item]; !exists {
+			add = append(add, item)
 		}
 	}
 
-	// 找出原切片中删除的元素
-	for item := range originalMap {
-		removed = append(removed, item)
+	// 检测删除项（使用旧集合顺序保证确定性）
+	remove = make([]T, 0, len(oldSet))
+	for item := range oldSet {
+		if _, exists := newSet[item]; !exists {
+			remove = append(remove, item)
+		}
 	}
 
-	return added, removed
+	return add, remove
 }
