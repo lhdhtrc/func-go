@@ -1,4 +1,4 @@
-package arrary
+package array
 
 // Filter 过滤函数
 func Filter[T any](array []T, fn func(index int, item T) bool) []T {

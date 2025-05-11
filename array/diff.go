@@ -1,4 +1,4 @@
-package arrary
+package array
 
 func DiffSlices[T comparable](old, new []T) (add, remove []T) {
 	// 使用双map实现O(1)存在性检查 + 自动去重
